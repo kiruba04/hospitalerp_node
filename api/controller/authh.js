@@ -48,7 +48,7 @@ export const register = async (req, res) => {
       res.cookie("access_token", token, {
         httpOnly: true,
         secure: true, // Ensure this is set if using HTTPS
-
+        sameSite: 'None',
         maxAge: 24 * 60 * 60 // 24 hours in seconds
       }).status(200).json({ auth: true, token }); // Sending auth and token in response
     } catch (err) {
@@ -92,7 +92,7 @@ export const logout = async (req, res) => {
     res.clearCookie('access_token', {
       httpOnly: true,
       secure: true, // Ensure this is set if using HTTPS
-      sameSite: 'Strict',
+      sameSite: 'None',
       domain: 'localhost', // Make sure the domain matches your front-end domain
       path: '/',
     });
