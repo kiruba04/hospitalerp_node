@@ -7,6 +7,9 @@ const { Schema } = mongoose;
 const appointmentSchema = new Schema({
   userid: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   doctorid: { type: Schema.Types.ObjectId, ref: 'Doctor', required: true },
+  patientname:{type:String},
+  patientage:{type:Number},
+  patientgender:{type:String},
   date: { type: Date, required: true },
   day: { type: String, required: true }, // e.g., 'Monday'
   tokennumber:{type:Number,required:true},
