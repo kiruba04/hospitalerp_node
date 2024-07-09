@@ -4,7 +4,7 @@ import Appointment from '../models/Appointment.js';
 import Doctor from '../models/Doctor.js';
 
 export const createAppointment = async (req, res) => {
-  const { userid, doctorid, date, time,symptom } = req.body;
+  const { userid, doctorid, date, time,symptom,patientname,patientage,patientgender } = req.body;
   try {
     const doctor = await Doctor.findById(doctorid);
     if (!doctor) {
@@ -40,7 +40,10 @@ export const createAppointment = async (req, res) => {
       day,
       time,
       symptom,
-      tokennumber: tokenNumber
+      tokennumber: tokenNumber,
+      patientname,
+      patientage,
+      patientgender
     });
 
     await newAppointment.save();
