@@ -3,11 +3,10 @@ import Doctor from '../models/Doctor.js';
 
 // Function to add a new doctor
 export const addDoctor = async (req, res) => {
-  const { username, password, dateofbirth, email, phone, category, availableAppointments } = req.body;
-  
+  const { username, password, dateofbirth, email, phone, category, availableAppointments,imageUrl } = req.body;
+
   // Hash the password
   const hashedPassword = await bcrypt.hash(password, 10);
-
   // Create a new doctor object
   const newDoctor = new Doctor({
     username,
@@ -16,7 +15,8 @@ export const addDoctor = async (req, res) => {
     email,
     phone,
     category,
-    availableAppointments
+    availableAppointments,
+    imageUrl // Save the image URL from the uploaded file
   });
 
   try {
@@ -29,7 +29,8 @@ export const addDoctor = async (req, res) => {
   }
 };
 
-export const noofcategory =async(req,res) =>{
+// Other controller functions remain the same
+export const noofcategory = async (req, res) => {
   try {
     const categories = await Doctor.distinct('category');
     res.status(200).json({
@@ -39,33 +40,33 @@ export const noofcategory =async(req,res) =>{
   } catch (err) {
     res.status(500).send('Error finding distinct categories');
   }
-}
+};
 
-export const getdoctor =async(req,res) =>{
+export const getdoctor = async (req, res) => {
   try {
-    const doctor = await Doctor.findById(req.params.id )
+    const doctor = await Doctor.findById(req.params.id);
     res.status(200).json(doctor);
-    } catch (err) {
-      res.status(500).send('Error finding doctor');
-      }
-}
+  } catch (err) {
+    res.status(500).send('Error finding doctor');
+  }
+};
 
-export const getdoctors =async(req,res) =>{
+export const getdoctors = async (req, res) => {
   try {
-    const doctor = await Doctor.find()
+    const doctor = await Doctor.find();
     res.status(200).json(doctor);
-    } catch (err) {
-      res.status(500).send('Error finding doctor');
-      }
-}
+  } catch (err) {
+    res.status(500).send('Error finding doctor');
+  }
+};
 
-export const updatedoctor =async (req,res,next)=>{
-  try{
-      const doctorId = req.params.id;
-      const updateddoctor = req.body;
-      const updatedDoctor = await Doctor.findByIdAndUpdate(doctorId, updateddoctor, { new: true });
-      res.status(200).json(updatedDoctor);
-    }catch(err){
-   next(err)
-  } 
-}
+export const updatedoctor = async (req, res, next) => {
+  try {
+    const doctorId = req.params.id;
+    const updateddoctor = req.body;
+    const updatedDoctor = await Doctor.findByIdAndUpdate(doctorId, updateddoctor, { new: true });
+    res.status(200).json(updatedDoctor);
+  } catch (err) {
+    next(err);
+  }
+};

@@ -84,7 +84,7 @@ export const login = async (req, res) => {
     httpOnly: true,
     secure: true, // Ensure this is set if using HTTPS
     sameSite: 'None',
-    maxAge:24*60*60*60
+    maxAge:24*60*60*60*60
   }).status(200).json({ auth: true, token, userType,user}); // Send auth, token, and userType in one response
 };
 
