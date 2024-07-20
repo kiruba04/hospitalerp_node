@@ -118,3 +118,19 @@ export const deleteappointment = async (req,res) => {
       res.status(500).json({ message: error.message });
       }
 };
+
+export const getFutureAppointmentsByDoctor = async (req, res) => {
+  const { doctorid } = req.params;
+  const today = new Date().setHours(0, 0, 0, 0);
+
+  try {
+    const appointments = await Appointment.find({
+      doctorid,
+      date: { $gt: today }
+    }).sort({ date: 1 }).populate('userid', 'username bloodType dateOfBirth gender medicalHistory');
+    res.status(200).json(appointments);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
