@@ -15,13 +15,13 @@ dotenv.config();
 /* middle ware*/
 app.use(express.json())
 app.use(cors({
-  origin: 'https://merry-douhua-01.netlify.app',
+  origin: 'https://healthcare-cloud.netlify.app',
   credentials: true
 }));
 app.use(cookie());
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://merry-douhua-01.netlify.app'); // Replace with your actual frontend URL
+  res.setHeader('Access-Control-Allow-Origin', 'https://healthcare-cloud.netlify.app'); // Replace with your actual frontend URL
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   next();
 });
